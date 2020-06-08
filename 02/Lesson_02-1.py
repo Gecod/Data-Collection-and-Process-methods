@@ -119,5 +119,5 @@ while True:
 pprint(vacancies)
 print(f'Найдено {num_steps} вакансий на сайте {main_link}')
 
-with open('vacancies.json', 'w') as f:
+with open('vacancies.json', 'w', encoding='utf-8') as f:
     f.write(str(vacancies))
