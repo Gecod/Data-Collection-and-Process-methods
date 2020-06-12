@@ -99,6 +99,7 @@ while True:
 
             try:
                 if _id == list(collection.find({'_id': str(_id)}))[0]['_id']:
+                    collection.update_one({'_id': str(_id)}, {'$set': vacancy_data})
                     continue
             except IndexError:
                 vacancies.append(vacancy_data)
