@@ -8,11 +8,11 @@
 from pprint import pprint
 from lxml import html
 import requests
-# from pymongo import MongoClient
+from pymongo import MongoClient
 
-# client = MongoClient('localhost', 27017)
-# db = client['news_db']
-# collection = db.news_collection
+client = MongoClient('localhost', 27017)
+db = client['news_db']
+collection = db.news_collection
 
 main_link = 'https://lenta.ru'
 header = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) \
@@ -22,7 +22,7 @@ response = requests.get(main_link, headers=header)
 dom = html.fromstring(response.text)
 blocks = dom.xpath("//div[contains(@class, 'item news')][not(contains(@href, 'moslenta.ru'))]")
 
-news_set = []
+# news_set = []
 num = 0
 
 for block in blocks:
@@ -38,11 +38,11 @@ for block in blocks:
     item['url'] = link
     item['publication_date'] = publication_date
 
-    news_set.append(item)
+    # news_set.append(item)
     num += 1
-    # collection.insert_one(item)
+    collection.insert_one(item)
 
-pprint(news_set)
+# pprint(news_set)
 print(f'Всего {num} новостей')
 
 # for item in collection.find({}):
