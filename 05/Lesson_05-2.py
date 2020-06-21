@@ -2,11 +2,13 @@
 # можно выбрать свои. Главный критерий выбора: динамически загружаемые товары
 
 from selenium import webdriver
+from selenium.common import exceptions
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+from pprint import pprint
 from selenium.webdriver.common.action_chains import ActionChains
 import time
 
@@ -17,51 +19,46 @@ driver = webdriver.Chrome(options=chrome_options)
 
 driver.get('https://www.mvideo.ru/')
 
-time.sleep(5)
-button = driver.find_element_by_class_name('btn-approve-city')
-button.click()
+hits = driver.find_element_by_xpath(
+    "//div[contains(text(),'Хиты продаж')]/ancestor::div[@data-init='gtm-push-products']")
 
-# time.sleep(5)
-actions = ActionChains(driver)
-# actions.move_by_offset(360, 50).click()
-actions.move_by_offset(360, 100).perform()
-time.sleep(5)
-actions.click().perform()
+while True:
+    try:
+        next_button = WebDriverWait(hits, 5).until(
+            EC.presence_of_element_located((By.XPATH, ".//a[contains(@class, 'next-btn')][not(contains(@class, 'disabled'))]"))
+        )
 
-driver.execute_script('window.scrollTo(0, 2000)')
+        next_button.click()
+        time.sleep(1)
 
-button = driver.find_element_by_class_name('sel-hits-button-next')
-button.click()
+    except exceptions.TimeoutException:
+        print('Сбор данных окончен')
+        break
 
-# elem = driver.find_element_by_class_name("close")
-# elem.send_keys(Keys.ESCAPE)
+hits = hits.find_elements_by_xpath(".//li[contains(@class, 'gallery-list-item')]")
 
+hits_set = []
+num = 0
+for hit in hits:
+    item = {}
 
-# button = Keys.ESCAPE
-# button.
+    data_product_info = hit.find_element_by_xpath(".//a[@class='sel-product-tile-title']").get_attribute('data-product-info').replace('\n', '').replace('\t', '')
+    data_product_info = data_product_info.replace('{', '').replace('}', '').replace('"', '').replace(': ', ',').split(',')
+    i = 0
+    product_info = {}
+    while i < len(data_product_info) - 1:
+        product_info[data_product_info[i]] = data_product_info[i + 1]
+        i += 2
 
-# button = driver.find_element_by_class_name('close')
-# button.click()
+    url = hit.find_element_by_xpath(".//a[@class='sel-product-tile-title']").get_attribute('href')
 
-# button = WebDriverWait(driver, 5).until(
-#     EC.element_to_be_clickable((By.CLASS_NAME, 'store-notification__button--submit'))
-# )
+    item['_id'] = product_info.get('productId')
+    item['title'] = product_info.get('productName')
+    item['price'] = float(product_info.get('productPriceLocal'))
+    item['url'] = url
 
-# button.click()
-#
-# driver.execute_script('window.scrollTo(0, 2000)')
-#
-# button = WebDriverWait(driver, 5).until(
-#     EC.element_to_be_clickable((By.CLASS_NAME, 'cookie-usage-notice__button'))
-# )
-# button.click()
-#
-# while True:
-#     try:
-#         button = WebDriverWait(driver, 5).until(
-#             EC.element_to_be_clickable((By.CLASS_NAME, 'catalog-grid-container__pagination-button'))
-#         )
-#         # driver.execute_script('window.scrollHeight')
-#         button.click()
-#     except:
-#         break
+    hits_set.append(item)
+    num += 1
+
+pprint(hits_set)
+print(f'Всего {num} товаров')
