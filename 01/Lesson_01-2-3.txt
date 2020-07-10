@@ -1,0 +1,74 @@
+C:\Users\Kutuzov>curl -u "Gecod" -i https://api.github.com/users/Gecod
+Enter host password for user 'Gecod':
+HTTP/1.1 200 OK
+Date: Fri, 05 Jun 2020 07:27:00 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 1525
+Server: GitHub.com
+Status: 200 OK
+X-RateLimit-Limit: 5000
+X-RateLimit-Remaining: 4997
+X-RateLimit-Reset: 1591342242
+Cache-Control: private, max-age=60, s-maxage=60
+Vary: Accept, Authorization, Cookie, X-GitHub-OTP
+ETag: "456cedc9a73c781bf870942a5c424b39"
+Last-Modified: Fri, 05 Jun 2020 05:50:29 GMT
+X-GitHub-Media-Type: github.v3; format=json
+Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation, Sunset
+Access-Control-Allow-Origin: *
+Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+X-Frame-Options: deny
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+Content-Security-Policy: default-src 'none'
+Vary: Accept-Encoding, Accept, X-Requested-With
+Vary: Accept-Encoding
+X-GitHub-Request-Id: E946:E717:1C009C7:2194B12:5ED9F3C3
+
+{
+  "login": "Gecod",
+  "id": 56275019,
+  "node_id": "MDQ6VXNlcjU2Mjc1MDE5",
+  "avatar_url": "https://avatars3.githubusercontent.com/u/56275019?v=4",
+  "gravatar_id": "",
+  "url": "https://api.github.com/users/Gecod",
+  "html_url": "https://github.com/Gecod",
+  "followers_url": "https://api.github.com/users/Gecod/followers",
+  "following_url": "https://api.github.com/users/Gecod/following{/other_user}",
+  "gists_url": "https://api.github.com/users/Gecod/gists{/gist_id}",
+  "starred_url": "https://api.github.com/users/Gecod/starred{/owner}{/repo}",
+  "subscriptions_url": "https://api.github.com/users/Gecod/subscriptions",
+  "organizations_url": "https://api.github.com/users/Gecod/orgs",
+  "repos_url": "https://api.github.com/users/Gecod/repos",
+  "events_url": "https://api.github.com/users/Gecod/events{/privacy}",
+  "received_events_url": "https://api.github.com/users/Gecod/received_events",
+  "type": "User",
+  "site_admin": false,
+  "name": null,
+  "company": null,
+  "blog": "",
+  "location": null,
+  "email": null,
+  "hireable": null,
+  "bio": null,
+  "twitter_username": null,
+  "public_repos": 5,
+  "public_gists": 0,
+  "followers": 0,
+  "following": 0,
+  "created_at": "2019-10-07T19:14:31Z",
+  "updated_at": "2020-06-05T05:50:29Z",
+  "private_gists": 0,
+  "total_private_repos": 1,
+  "owned_private_repos": 1,
+  "disk_usage": 1754,
+  "collaborators": 0,
+  "two_factor_authentication": false,
+  "plan": {
+    "name": "free",
+    "space": 976562499,
+    "collaborators": 0,
+    "private_repos": 10000
+  }
+}
